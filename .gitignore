@@ -1,0 +1,20 @@
+# Denotes which files and directories Git should ignore
+
+# Dependency directories
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Environment variables
+.env
+backend/.env
+frontend/.env
+
+# Build outputs
+dist/
+build/
+.cache/
+
+# System files
+.DS_Store
+Thumbs.db
