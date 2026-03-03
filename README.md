@@ -1,0 +1,35 @@
+# Team Task Management System - MERN
+
+A Task Management System built using the MERN stack (MongoDB, Express, React, Node.js).
+
+##  Day 1: Backend Foundation & Database Architecture
+
+In Day 1, we focused on setting up the core infrastructure of the backend and defining the data layer.
+
+### Tasks Completed:
+
+✅ What I Completed
+1️⃣ Backend Folder Structure
+
+To keep the project clean and scalable, I organized the backend like this:
+config/ → Database configuration
+models/ → Mongoose schemas
+controllers/ → Business logic (to be implemented in Day 2)
+routes/ → API routes (to be implemented in Day 2)
+middleware/ → Custom Express middlewares
+This structure will help maintain clean separation of concerns as the project grows.
+
+2️⃣ Environment & Dependencies Setup
+
+Initialized the project and installed the required dependencies:
+express → Backend framework
+mongoose → MongoDB ODM
+dotenv → Environment variable management
+bcryptjs → Password hashing
+jsonwebtoken → JWT-based authentication
+cors → Cross-origin resource sharing
+Created a .env file to securely store:
+
+PORT
+MONGO_URI
+JWT_SECRET
