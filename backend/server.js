@@ -21,6 +21,13 @@ app.get('/', (req, res) => {
     res.send('Team Task Management API is running...');
 });
 
+/**
+ * @route   /api/auth
+ * @desc    Auth-related routes (User Registration & login)
+ * Auth se jude sare endpoints niche dijiye
+ */
+app.use('/api/auth', require('./routes/authRoutes'));
+
 // Set port and start server
 const PORT = process.env.PORT || 5000;
 
