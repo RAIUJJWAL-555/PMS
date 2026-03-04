@@ -21,14 +21,12 @@ This structure will help maintain clean separation of concerns as the project gr
 
 2️⃣ Environment & Dependencies Setup
 
-Initialized the project and installed the required dependencies:
 express → Backend framework
-mongoose → MongoDB ODM
-dotenv → Environment variable management
-bcryptjs → Password hashing
+mongoose → MongoDB 
 jsonwebtoken → JWT-based authentication
 cors → Cross-origin resource sharing
-Created a .env file to securely store:
+Autehntication for user login and registration
+UI for login and registration page and after login there is a user dashboard page where you can see your name and role and a logout button
 
 PORT
 MONGO_URI

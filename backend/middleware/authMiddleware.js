@@ -1,14 +1,10 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-/**
- * @description: Middleware to protect routes & verify JWT token
- * JWT token ko verify karne ke liye middleware
- */
+
 const protect = async (req, res, next) => {
     let token;
 
-    // Check if Authorization header exists and starts with Bearer
     // Check karein ki headers mein Bearer token hai ya nahi
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
@@ -18,7 +14,6 @@ const protect = async (req, res, next) => {
             // Verify token
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-            // Get user from the token and attach to request object (exclude password)
             // Token se user decode karke request (req.user) mein store karein
             req.user = await User.findById(decoded.id).select('-password');
 
@@ -34,10 +29,9 @@ const protect = async (req, res, next) => {
     }
 };
 
-/**
- * @description: Middleware to authorize based on user roles (admin/member)
- * Role check karne ke liye middleware (Admin hai ya Member)
- */
+
+//  Role check karne ke liye middleware (Admin hai ya Member)
+
 const authorize = (...roles) => {
     return (req, res, next) => {
         // Check if user role is included in allowed roles
