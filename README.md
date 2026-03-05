@@ -31,3 +31,8 @@ UI for login and registration page and after login there is a user dashboard pag
 PORT
 MONGO_URI
 JWT_SECRET
+
+3️⃣ Modules
+
+Created Project creation API
+Created Project dashboard UI

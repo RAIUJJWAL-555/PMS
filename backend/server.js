@@ -3,29 +3,29 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
 
-// Load environment variables from .env file
+// Load environment variables
 dotenv.config();
 
-// Connect to MongoDB
+// Connect to Database
 connectDB();
 
-// Initialize express app
 const app = express();
 
 // Middleware
-app.use(cors()); // Enable Cross-Origin Resource Sharing
-app.use(express.json()); // Allow express to parse JSON bodies
+app.use(cors());
+app.use(express.json());
 
+// Routes
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/projects', require('./routes/projectRoutes'));
 
+// Basic Route
 app.get('/', (req, res) => {
-    res.send('Team Task Management API is running...');
+  res.send('API is running...');
 });
 
-app.use('/api/auth', require('./routes/authRoutes'));
-
-// Set port and start server
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log(`Server running in development mode on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
