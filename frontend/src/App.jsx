@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProjectDashboard from './pages/ProjectDashboard';
+import TaskPage from './pages/TaskPage';
+import MyTasksPage from './pages/MyTasksPage';
 import { AuthContext, AuthProvider } from './context/AuthContext';
 
 const ProtectedRoute = ({ children }) => {
@@ -33,6 +35,20 @@ const AppContent = () => {
                         element={
                             <ProtectedRoute>
                                 <ProjectDashboard />
+                            </ProtectedRoute>
+                        } />
+                    <Route
+                        path="/tasks"
+                        element={
+                            <ProtectedRoute>
+                                <TaskPage />
+                            </ProtectedRoute>
+                        } />
+                    <Route
+                        path="/my-tasks"
+                        element={
+                            <ProtectedRoute>
+                                <MyTasksPage />
                             </ProtectedRoute>
                         } />
                     {/* Catch all to redirect to home */}

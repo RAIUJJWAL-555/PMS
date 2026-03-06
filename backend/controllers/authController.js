@@ -69,7 +69,20 @@ const loginUser = async (req, res) => {
   }
 };
 
+// @desc    Get all users with the role 'member'
+// @route   GET /api/auth/members
+// @access  Private/Admin
+const getMembers = async (req, res) => {
+  try {
+    const users = await User.find({ role: 'member' }).select('name email');
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
+  getMembers,
 };

@@ -1,8 +1,5 @@
 const Project = require('../models/Project');
 
-// @desc    Create a new project
-// @route   POST /api/projects
-// @access  Private/Admin
 const createProject = async (req, res) => {
   try {
     const { project_name, description } = req.body;
@@ -25,9 +22,7 @@ const createProject = async (req, res) => {
   }
 };
 
-// @desc    Get all projects
-// @route   GET /api/projects
-// @access  Private
+
 const getProjects = async (req, res) => {
   try {
     const projects = await Project.find({}).populate('created_by', 'name email');
@@ -37,9 +32,6 @@ const getProjects = async (req, res) => {
   }
 };
 
-// @desc    Get project by ID
-// @route   GET /api/projects/:id
-// @access  Private
 const getProjectById = async (req, res) => {
   try {
     const project = await Project.findById(req.params.id).populate('created_by', 'name email');
@@ -54,9 +46,6 @@ const getProjectById = async (req, res) => {
   }
 };
 
-// @desc    Delete a project
-// @route   DELETE /api/projects/:id
-// @access  Private/Admin
 const deleteProject = async (req, res) => {
   try {
     const project = await Project.findById(req.params.id);

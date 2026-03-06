@@ -36,3 +36,11 @@ JWT_SECRET
 
 Created Project creation API
 Created Project dashboard UI
+
+4️⃣Task Module
+1. Create Task creation API : Here you can add task which is visible on Member and admin dashboard also
+2. Assign task to user : When you are creating task using API then you are assign task to user
+
+Status Tracking
+1. Add status update feature : Here when member make any changes in task status then it will be updated and show to the admin dashboard
+2. Show progress bar : According to changes in task your progress bar will be updated
