@@ -28,6 +28,10 @@ const taskSchema = new mongoose.Schema({
     enum: ['Pending', 'In Progress', 'Completed'],
     default: 'Pending',
   },
+  exp_points: {
+    type: Number,
+    default: 50,
+  },
 }, {
   timestamps: true,
 });

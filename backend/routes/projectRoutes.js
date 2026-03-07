@@ -5,6 +5,7 @@ const {
   getProjects,
   getProjectById,
   deleteProject,
+  updateProject,
 } = require('../controllers/projectController');
 const { protect, isAdmin } = require('../middleware/authMiddleware');
 
@@ -19,6 +20,10 @@ router.get('/', protect, getProjects);
 // @route   GET /api/projects/:id
 // @access  Private
 router.get('/:id', protect, getProjectById);
+
+// @route   PUT /api/projects/:id
+// @access  Private/Admin
+router.put('/:id', protect, isAdmin, updateProject);
 
 // @route   DELETE /api/projects/:id
 // @access  Private/Admin

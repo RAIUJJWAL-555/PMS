@@ -6,26 +6,44 @@ import RegisterPage from './pages/RegisterPage';
 import ProjectDashboard from './pages/ProjectDashboard';
 import TaskPage from './pages/TaskPage';
 import MyTasksPage from './pages/MyTasksPage';
+import ProjectsPage from './pages/ProjectsPage';
+import MembersPage from './pages/MembersPage';
 import { AuthContext, AuthProvider } from './context/AuthContext';
 
-const ProtectedRoute = ({ children }) => {
-    const { user, loading } = useContext(AuthContext);
-
-    if (loading) return (
-        <div className="min-h-screen bg-gray-900 flex items-center justify-center text-white">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+// Loading component
+const Loading = () => (
+    <div className="min-h-screen flex items-center justify-center bg-[#F1F6F4]">
+        <div className="relative">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-[#FFC801] shadow-[0_0_15px_rgba(255,200,1,0.3)]"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-2 h-2 bg-[#FF9932] rounded-full animate-pulse"></div>
+            </div>
         </div>
-    );
+    </div>
+);
+
+const ProtectedRoute = ({ children, roles }) => {
+    const { user } = useContext(AuthContext);
 
     if (!user) return <Navigate to="/login" replace />;
+
+    // Optional: Role-based access control
+    if (roles && user && !roles.includes(user.role)) {
+        // Redirect to dashboard or an unauthorized page if user doesn't have required role
+        return <Navigate to="/dashboard" replace />;
+    }
 
     return children;
 };
 
 const AppContent = () => {
+    const { loading } = useContext(AuthContext);
+
+    if (loading) return <Loading />;
+
     return (
         <Router>
-            <div className="bg-gray-900 text-white min-h-screen">
+            <div className="min-h-screen font-semibold bg-[#F1F6F4] text-[#172B36] selection:bg-[#FFC801]/30">
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/login" element={<LoginPage />} />
@@ -38,9 +56,23 @@ const AppContent = () => {
                             </ProtectedRoute>
                         } />
                     <Route
-                        path="/tasks"
+                        path="/projects"
                         element={
                             <ProtectedRoute>
+                                <ProjectsPage />
+                            </ProtectedRoute>
+                        } />
+                    <Route
+                        path="/users"
+                        element={
+                            <ProtectedRoute>
+                                <MembersPage />
+                            </ProtectedRoute>
+                        } />
+                    <Route
+                        path="/tasks"
+                        element={
+                            <ProtectedRoute roles={['admin']}>
                                 <TaskPage />
                             </ProtectedRoute>
                         } />

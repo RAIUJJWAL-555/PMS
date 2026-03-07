@@ -4,6 +4,7 @@ const {
   createTask,
   getTasksByProject,
   getMyTasks,
+  getAllTasks,
   assignTask,
   updateTaskStatus,
 } = require('../controllers/taskController');
@@ -11,6 +12,9 @@ const { protect, isAdmin } = require('../middleware/authMiddleware');
 
 // @route   POST /api/tasks (Create Task - Admin Only)
 router.post('/', protect, isAdmin, createTask);
+
+// @route   GET /api/tasks (Get all tasks - Admin Only)
+router.get('/', protect, isAdmin, getAllTasks);
 
 // @route   GET /api/tasks/project/:projectId (Get all tasks of a project - Protected)
 router.get('/project/:projectId', protect, getTasksByProject);

@@ -3,28 +3,88 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: 600;
 
-  color-scheme: dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #111827; /* Tailwind gray-900 */
+  color-scheme: light;
+  color: #172B36;
+  background-color: #F1F6F4;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 html, body, #root {
   height: 100%;
   width: 100%;
-  margin: 0;
   padding: 0;
 }
 
 body {
-  min-width: 320px;
-  min-height: 100vh;
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif; /* New font family */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #F1F6F4 0%, #D9E8E2 50%, #F1F6F4 100%) fixed; /* New background gradient */
+  color: #172B36; /* New body text color */
+  min-height: 100vh; /* Changed from min-height: screen; to 100vh for standard CSS */
+}
+
+/* Custom Scrollbar for Royale Clay */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #D9E8E2; /* New scrollbar track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #114C5A; /* New scrollbar thumb color */
+  border-radius: 10px; /* New border-radius */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #172B36; /* New scrollbar thumb hover color */
+}
+
+@layer components {
+  .clay-card {
+    @apply bg-[#F1F6F4] rounded-[24px] p-6 hover:scale-[1.01] transition-all duration-300; /* New background color */
+    box-shadow: 8px 8px 20px rgba(23,43,54,0.15), -4px -4px 12px rgba(255,255,255,0.9); /* New box-shadow */
+    /* Removed border */
+  }
+  .clay-card-mint { /* Replaced .clay-card-light with .clay-card-mint */
+    @apply bg-[#D9E8E2] rounded-[24px] p-6 hover:scale-[1.01] transition-all duration-300; /* New background color */
+    box-shadow: 8px 8px 20px rgba(23,43,54,0.12), -4px -4px 12px rgba(255,255,255,0.85); /* New box-shadow */
+  }
+  .clay-button-primary {
+    @apply bg-gradient-to-br from-[#FFC801] to-[#FF9932] rounded-[16px] hover:scale-105 transition-all duration-200 text-[#172B36] font-black uppercase tracking-widest; /* New gradient and text color */
+    box-shadow: 4px 4px 12px rgba(255,200,1,0.4), -2px -2px 6px rgba(255,255,255,0.9); /* New box-shadow */
+    /* Removed border */
+  }
+  .clay-button-primary:active {
+    box-shadow: inset 2px 2px 6px rgba(23,43,54,0.15); /* New box-shadow */
+  }
+  .clay-button-secondary {
+    @apply bg-gradient-to-br from-[#114C5A] to-[#172B36] rounded-[16px] hover:scale-105 transition-all duration-200 text-[#FFC801] font-black uppercase tracking-widest; /* New gradient and text color */
+    box-shadow: 4px 4px 12px rgba(17,76,90,0.3), -2px -2px 6px rgba(255,255,255,0.9); /* New box-shadow */
+    /* Removed border */
+  }
+  .clay-button-secondary:active {
+    box-shadow: inset 2px 2px 6px rgba(23,43,54,0.15); /* New box-shadow */
+  }
+  .clay-input {
+    @apply bg-[rgba(255,255,255,0.8)] rounded-[16px] px-5 py-4 focus:ring-0 font-black text-[#172B36]; /* New background and text color */
+    box-shadow: inset 3px 3px 8px rgba(23,43,54,0.1), inset -1px -1px 4px rgba(255,255,255,0.95); /* New box-shadow */
+    border: none; /* Changed border to none */
+  }
+  .clay-input:focus {
+    /* Removed border-color */
+    background-color: #ffffff; /* New background-color */
+  }
+  .clay-input::placeholder {
+    color: rgba(17,76,90,0.4); /* New placeholder color */
+  }
 }

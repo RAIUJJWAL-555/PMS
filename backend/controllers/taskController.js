@@ -1,12 +1,13 @@
 const Task = require('../models/Task');
 const Project = require('../models/Project');
+const User = require('../models/User');
 
 // @desc    Create a new task
 // @route   POST /api/tasks
 // @access  Admin Only
 const createTask = async (req, res) => {
   try {
-    const { title, description, project_id, assigned_to, deadline } = req.body;
+    const { title, description, project_id, assigned_to, deadline, exp_points } = req.body;
 
     // Check if project exists
     const project = await Project.findById(project_id);
@@ -20,6 +21,7 @@ const createTask = async (req, res) => {
       project_id,
       assigned_to,
       deadline,
+      exp_points: exp_points || 50,
       status: 'Pending', // Default status
     });
 
@@ -34,7 +36,24 @@ const createTask = async (req, res) => {
 // @access  Private
 const getTasksByProject = async (req, res) => {
   try {
-    const tasks = await Task.find({ project_id: req.params.projectId }).populate('assigned_to', 'name email');
+    const projectId = req.params.projectId;
+    
+    // Access control: Admin, Leader, or Member with tasks in this project
+    if (req.user.role !== 'admin') {
+      const project = await Project.findById(projectId);
+      if (!project) {
+        return res.status(404).json({ message: 'Project not found' });
+      }
+
+      const isLeader = project.project_leader?.toString() === req.user._id.toString();
+      const hasTask = await Task.findOne({ project_id: projectId, assigned_to: req.user._id });
+
+      if (!isLeader && !hasTask) {
+        return res.status(403).json({ message: 'Not authorized to view tasks for this project' });
+      }
+    }
+
+    const tasks = await Task.find({ project_id: projectId }).populate('assigned_to', 'name email');
     res.json(tasks);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -91,10 +110,30 @@ const updateTaskStatus = async (req, res) => {
       return res.status(403).json({ message: 'Not authorized to update this task status' });
     }
 
+    const oldStatus = task.status;
     task.status = status;
     const updatedTask = await task.save();
 
+    // Award points if status changed to 'Completed'
+    if (status === 'Completed' && oldStatus !== 'Completed') {
+      await User.findByIdAndUpdate(task.assigned_to, { $inc: { points: task.exp_points || 50 } });
+    }
+
     res.json(updatedTask);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Get all tasks
+// @route   GET /api/tasks
+// @access  Admin/Private
+const getAllTasks = async (req, res) => {
+  try {
+    const tasks = await Task.find({})
+      .populate('project_id', 'project_name')
+      .populate('assigned_to', 'name email');
+    res.json(tasks);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -104,6 +143,7 @@ module.exports = {
   createTask,
   getTasksByProject,
   getMyTasks,
+  getAllTasks,
   assignTask,
   updateTaskStatus,
 };
