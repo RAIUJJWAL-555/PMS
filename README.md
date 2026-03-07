@@ -1,3 +1,8 @@
+# Project Management System
+# Copyright (c) 2026 Ujjwal Rai
+# This project is licensed under GPL-3.0 License
+
+
 # Team Task Management System - MERN
 
 A Task Management System built using the MERN stack (MongoDB, Express, React, Node.js).
@@ -58,3 +63,7 @@ More things from my side :-
 2. Leaderboard system, which motivates the members to do their work for got selected in next round
 3. Exp points system, which will be given to the members for doing their work.
 4. On admin dashboard there will be you see the members name who have more exp points.
+
+This project was developed by Ujjwal Rai during internship.
+
+Unauthorized copying, modification, or submission of this project as personal work without attribution is not allowed.
